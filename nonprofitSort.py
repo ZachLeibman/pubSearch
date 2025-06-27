@@ -1,18 +1,23 @@
 from nonProfit import *
 from pathlib import Path
 
-class nonProfitSort():
-    fileList = []
-    nonProfits = []
-    outputFile = None
+class nonProfitSort():  
+    Directory = None
+    fileList = [] #dictonary to hold file names in directory as a string
+    nonProfits = [] #dictionary to hold after being converted into a nonProfit object
+    outputFile = None #csv file pointer
     def __init__(self, pdfFolderName, outputfile):
         self.outputFile = outputfile
+        self.Directory = pdfFolderName
         self.fileList =  [f.name for f in pdfFolderName.glob("*.pdf")]
        
-
+       
     def createList(self):
         for fileName in self.fileList:
-            self.nonProfits.append(nonProfit(fileName))
+            if fileName.contains("_990_" or "_990EZ_"):
+                self.nonProfits.append(nonProfit(fileName))
+            else:
+                pass
 
     def sortByName(self):
         sorted_list = sorted(self.nonProfits, key=lambda np: np.getName(), reverse=False)
@@ -27,9 +32,10 @@ class nonProfitSort():
         return sorted_list
     
     def main():
-        sortByName()
-        sortByRevenue()
-        sortByLocation()
+        sortedNames = nonProfitSort.sortByName()
+        sortedRev = nonProfitSort.sortByRevenue()
+        sortedRev = nonProfitSort.sortByLocation()
+
         
     if __name__ == "__main__":
         main()
