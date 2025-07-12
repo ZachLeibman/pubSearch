@@ -2,7 +2,7 @@ from nonProfit import *
 from pathlib import Path
 
 class nonProfitSort():  
-    Directory = Path("/Users/EpicManZ/Downloads/download990pdf_01_2024_prefixes_04-06-copy")
+    Directory = Path("/Users/EpicManZ/Downloads/download990pdf_01_2024_prefixes_04-06")
     fileList = [] #dictonary to hold file names in directory as a string
     nonProfits = [] #dictionary to hold after being converted into a nonProfit object
     outputFile = None #csv file pointer

@@ -42,7 +42,7 @@ class nonProfit:
                 elif "gross receipts" in line_lower and self.orgRev is None:
                     match = re.search(r"\$?[\d,]+", line)
                     if match:
-                        self.orgRev = match.group().replace("$", "")
+                        self.orgRev = match.group().replace("$", "").replace(",", "")
 
 
                 elif "number and street" in line_lower:
@@ -74,9 +74,8 @@ class nonProfit:
                 elif "telephone number" in line_lower:
                     if i + 1 < len(text):
                         phoneLine = text[i+1].strip()
-                        # Extract just the phone number using regex
-                        phone_match = re.search(r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}', phoneLine)
-                        self.phoneNum = phone_match.group() if phone_match else phoneLine
+                        # Extract just digits, parentheses, and dashes
+                        self.phoneNum = re.sub(r'[^\d()-]', '', phoneLine)
             
             print(f"Extracted orgName: {self.orgName}, revenue: {self.orgRev}")
                 
